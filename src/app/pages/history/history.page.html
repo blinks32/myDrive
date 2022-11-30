@@ -1,0 +1,62 @@
+<ion-header class="ion-no-border" [translucent]="true">
+  <ion-toolbar >
+    <ion-buttons slot="start">
+      <ion-button color="primary">
+        <ion-back-button></ion-back-button>
+      </ion-button>
+    </ion-buttons>
+    <ion-title> History </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  
+  <div *ngIf="hasNoData">
+    <ion-img src="../assets/imgs/empty.svg"></ion-img>
+  
+    <ion-list-header style="margin-top: 10%">
+      <ion-label color="primary" class="ion-text-center">
+        No Data
+        </ion-label>
+    </ion-list-header>
+    </div>
+  
+  <div [hidden]="!hideSkeleton">
+
+    <ion-item lines="none" *ngFor="let item of skeletOns">
+      <ion-thumbnail>
+        <ion-skeleton-text [animated]="true" style="width: 500px; height: 250px;"></ion-skeleton-text>
+      </ion-thumbnail>
+    </ion-item>
+    
+    
+    </div>
+
+    <ion-grid *ngIf="!hideSkeleton">
+      <ion-row class="ion-padding" *ngFor="let message of items">
+        <ion-col  class="message">
+          <h1 class="price">{{message.price || 100}}</h1>
+            <!-- <ion-thumbnail style="float: left"> -->
+              <ion-avatar  style="float: left">
+                <ion-img  src="{{message.Driver_imgUrl}}"></ion-img>
+              </ion-avatar>
+            <!-- </ion-thumbnail> -->
+             
+          <b class="ion-margin">{{ message.Rider_name }}</b><br>
+          <span class="ion-margin">
+            {{ message.Rider_Location || 'umuahia'}}
+          </span>
+          <br>
+          <span class="ion-margin">{{ message.Rider_Destination || 'lagos' }}
+          </span>
+
+        
+         
+          <div class="time ion-text-right"><br>{{ message.time?.toMillis() | date:'short' }}</div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+</ion-content>
